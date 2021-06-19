@@ -1,10 +1,11 @@
-package com.kunize.stock_market_simulator
+package com.kunize.stock_market_simulator.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.kunize.stock_market_simulator.R
 
 class SettingFragment : Fragment() {
     override fun onCreateView(

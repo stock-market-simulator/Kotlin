@@ -3,6 +3,7 @@ package com.kunize.stock_market_simulator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.tabs.TabLayoutMediator
+import com.kunize.stock_market_simulator.adapter.CustomFragmentStateAdapter
 import com.kunize.stock_market_simulator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
