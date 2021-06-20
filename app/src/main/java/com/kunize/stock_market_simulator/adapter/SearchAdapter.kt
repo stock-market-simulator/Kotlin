@@ -10,8 +10,8 @@ import com.kunize.stock_market_simulator.databinding.ItemRecyclerSearchBinding
 import java.util.*
 
 class SearchAdapter : RecyclerView.Adapter<SearchHolder>(), Filterable {
-    var listData = mutableListOf<String>()
-    var listData2 = mutableListOf<String>()
+    var filteredData = mutableListOf<String>()
+    var unfilteredData = mutableListOf<String>()
     private lateinit var itemClickListner: ItemClickListener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchHolder {
         val binding = ItemRecyclerSearchBinding.inflate(
@@ -22,11 +22,11 @@ class SearchAdapter : RecyclerView.Adapter<SearchHolder>(), Filterable {
     }
 
     override fun getItemCount(): Int {
-        return listData.size
+        return filteredData.size
     }
 
     override fun onBindViewHolder(holder: SearchHolder, position: Int) {
-        val data = listData[position]
+        val data = filteredData[position]
         holder.setData(data)
         holder.itemView.setOnClickListener{
             itemClickListner.onClick(it,position)
@@ -37,11 +37,11 @@ class SearchAdapter : RecyclerView.Adapter<SearchHolder>(), Filterable {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charString = constraint.toString()
-                listData = if(charString.isEmpty()) {
-                    listData2
+                filteredData = if(charString.isEmpty()) {
+                    unfilteredData
                 } else {
                     val filteredList = mutableListOf<String>()
-                    for(name in listData2){
+                    for(name in unfilteredData){
                         if (name.toLowerCase(Locale.ROOT).contains(charString.toLowerCase(Locale.ROOT))) {
                             filteredList.add(name)
                         }
@@ -49,11 +49,11 @@ class SearchAdapter : RecyclerView.Adapter<SearchHolder>(), Filterable {
                     filteredList
                 }
                 val filterResults = FilterResults()
-                filterResults.values = listData
+                filterResults.values = filteredData
                 return filterResults
             }
             override fun publishResults(constraint: CharSequence, results: FilterResults) {
-                listData  = results.values as MutableList<String>
+                filteredData  = results.values as MutableList<String>
                 notifyDataSetChanged()
             }
         }

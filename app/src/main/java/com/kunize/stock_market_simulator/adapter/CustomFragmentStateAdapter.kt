@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.kunize.stock_market_simulator.fragment.HomeFragment
 import com.kunize.stock_market_simulator.fragment.MyInfoFragment
 import com.kunize.stock_market_simulator.fragment.SettingFragment
-import com.kunize.stock_market_simulator.fragment.TransactionFragment
+import com.kunize.stock_market_simulator.fragment.TransactionHistoryFragment
 
 class CustomFragmentStateAdapter(fragmentActivity: FragmentActivity):
     FragmentStateAdapter(fragmentActivity) {
@@ -17,7 +17,7 @@ class CustomFragmentStateAdapter(fragmentActivity: FragmentActivity):
     override fun createFragment(position: Int): Fragment {
         return when(position) {
             0 -> HomeFragment()
-            1 -> TransactionFragment()
+            1 -> TransactionHistoryFragment()
             2 -> MyInfoFragment()
             else -> SettingFragment()
         }

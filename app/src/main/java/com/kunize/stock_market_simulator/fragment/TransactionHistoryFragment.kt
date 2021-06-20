@@ -10,7 +10,7 @@ import com.kunize.stock_market_simulator.R
 import com.kunize.stock_market_simulator.SearchActivity
 import com.kunize.stock_market_simulator.databinding.FragmentTransactionBinding
 
-class TransactionFragment : Fragment() {
+class TransactionHistoryFragment : Fragment() {
     lateinit var binding: FragmentTransactionBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
