@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FAFAFA"
-    tools:context=".TransactionActivity">
+    tools:context=".StockInfoActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout5"
@@ -115,6 +115,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="#E0E0E0"
+                app:cardCornerRadius="15dp">
+
+                <Spinner
+                    android:id="@+id/spinnerChartType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:background="@null"
+                    android:gravity="center" />
+            </androidx.cardview.widget.CardView>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/stockChart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="40dp" />
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView

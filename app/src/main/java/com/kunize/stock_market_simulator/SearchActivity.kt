@@ -46,7 +46,7 @@ class SearchActivity : AppCompatActivity() {
         searchAdapter.setItemClickListener(object : SearchAdapter.ItemClickListener {
             override fun onClick(view: View, position: Int) {
                 //여기에서 거래 액티비티 실행
-                val intent = Intent(this@SearchActivity, TransactionActivity::class.java)
+                val intent = Intent(this@SearchActivity, StockInfoActivity::class.java)
                 intent.putExtra("stockName", searchAdapter.filteredData[position])
                 startActivity(intent)
             }

@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Stock_market_simulator">
-        <activity android:name=".BuyOrSellActivity"></activity>
-        <activity android:name=".TransactionActivity" />
+        <activity android:name=".TransactionActivity"></activity>
+        <activity android:name=".StockInfoActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
