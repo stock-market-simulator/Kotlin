@@ -53,11 +53,11 @@
         android:textSize="28sp"
         android:textStyle="bold" />
 
-    <com.kunize.stock_market_simulator.RecyclerViewEmptySupport
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerbuying"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:orientation="vertical" />
 
     <TextView
@@ -71,11 +71,11 @@
         android:textSize="28sp"
         android:textStyle="bold" />
 
-    <com.kunize.stock_market_simulator.RecyclerViewEmptySupport
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerselling"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:orientation="vertical"/>
+        android:layout_margin="10dp"
+        android:orientation="vertical" />
 
 </LinearLayout>

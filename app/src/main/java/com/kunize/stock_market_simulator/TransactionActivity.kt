@@ -15,7 +15,7 @@ class TransactionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val spinnerAdapter = ArrayAdapter<String>(this,R.layout.item_spinner_transcation_type,spinnerData)
+        val spinnerAdapter = ArrayAdapter<String>(this,R.layout.item_spinner_transaction_type,spinnerData)
         binding.spinnerTranscationType.adapter = spinnerAdapter
 
         val stockName = intent.getStringExtra("stockName")

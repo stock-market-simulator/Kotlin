@@ -178,7 +178,7 @@
         android:textSize="36sp"
         android:textStyle="bold" />
 
-    <com.kunize.stock_market_simulator.RecyclerViewEmptySupport
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerStocksHeld"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

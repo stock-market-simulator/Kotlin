@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.red
+import androidx.recyclerview.widget.GridLayoutManager
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.Entry
@@ -19,7 +20,9 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.kunize.stock_market_simulator.MainActivity.Companion.BLUE
 import com.kunize.stock_market_simulator.MainActivity.Companion.RED
 import com.kunize.stock_market_simulator.SearchActivity
+import com.kunize.stock_market_simulator.adapter.InterestAdapter
 import com.kunize.stock_market_simulator.databinding.FragmentHomeBinding
+import com.kunize.stock_market_simulator.etcData.interestFormat
 
 class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
@@ -38,7 +41,22 @@ class HomeFragment : Fragment() {
         drawChart(binding.kospiChart, RED)
         drawChart(binding.kosdaqChart, BLUE)
 
+
+
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val interestAdapter = InterestAdapter()
+        val tempData = mutableListOf<interestFormat>(
+            interestFormat("삼성전자",90000,2.3),
+            interestFormat("대한항공",31000,-3.5),
+            interestFormat("네이버",419000,-1.06)
+        )
+        interestAdapter.interestData = tempData
+        binding.recyclerInterest.adapter = interestAdapter
+        binding.recyclerInterest.layoutManager = GridLayoutManager(activity,2)
     }
 
     private fun chartSet(chart: LineChart) {
