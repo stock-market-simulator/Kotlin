@@ -3,6 +3,7 @@ package com.kunize.stock_market_simulator
 import android.graphics.Color.rgb
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputType
 import android.view.View
 import android.widget.AdapterView
@@ -31,8 +32,19 @@ class TransactionActivity : AppCompatActivity() {
                 binding.buttonTranscation.text = "판매"
                 binding.textBuyorSell.text = "판매합니다."
             }
-            else -> {
-                //정정 부분 추가
+            "editBuy" -> {
+                binding.buttonTranscation.text = "정정"
+                binding.textBuyorSell.text = "정정합니다."
+                val amount = intent.getStringExtra("amount")
+                binding.editAmount.setText(amount)
+                //api 설정 추가
+            }
+            "editSell" -> {
+                binding.buttonTranscation.text = "정정"
+                binding.textBuyorSell.text = "정정합니다."
+                val amount = intent.getStringExtra("amount")
+                binding.editAmount.setText(amount)
+                //api 설정 추가
             }
         }
 

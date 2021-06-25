@@ -32,10 +32,10 @@ class TransactionHistoryFragment : Fragment() {
         val buyingAdapter = BuyingAdapter()
         val tempData = mutableListOf(
             StockInfoFormat("삼성전자",85000,10,850000),
-            StockInfoFormat("삼성전자",85000,10,850000),
-            StockInfoFormat("삼성전자",85000,10,850000),
-            StockInfoFormat("삼성전자",85000,10,850000),
-            StockInfoFormat("삼성전자",85000,10,850000)
+            StockInfoFormat("네이버",419000,2,419000*2),
+            StockInfoFormat("삼성전자우",30000,3,90000),
+            StockInfoFormat("카카오",50000,4,200000),
+            StockInfoFormat("대한항공",31000,5,155000)
         )
         buyingAdapter.buyingData = tempData
         binding.recyclerbuying.adapter = buyingAdapter
