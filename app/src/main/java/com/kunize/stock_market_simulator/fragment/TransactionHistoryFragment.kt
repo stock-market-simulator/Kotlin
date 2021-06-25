@@ -8,7 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kunize.stock_market_simulator.SearchActivity
-import com.kunize.stock_market_simulator.adapter.buyingAdapter
+import com.kunize.stock_market_simulator.adapter.BuyingAdapter
+import com.kunize.stock_market_simulator.adapter.SellingAdapter
 import com.kunize.stock_market_simulator.databinding.FragmentTransactionBinding
 import com.kunize.stock_market_simulator.etcData.StockInfoFormat
 
@@ -28,12 +29,28 @@ class TransactionHistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val buyingAdapter = buyingAdapter()
+        val buyingAdapter = BuyingAdapter()
         val tempData = mutableListOf(
+            StockInfoFormat("삼성전자",85000,10,850000),
+            StockInfoFormat("삼성전자",85000,10,850000),
+            StockInfoFormat("삼성전자",85000,10,850000),
+            StockInfoFormat("삼성전자",85000,10,850000),
             StockInfoFormat("삼성전자",85000,10,850000)
         )
         buyingAdapter.buyingData = tempData
         binding.recyclerbuying.adapter = buyingAdapter
         binding.recyclerbuying.layoutManager = LinearLayoutManager(activity)
+
+        val sellingAdapter = SellingAdapter()
+        val tempData2 = mutableListOf(
+            StockInfoFormat("네이버",400000,3,1200000),
+            StockInfoFormat("삼성전자",85000,10,850000),
+            StockInfoFormat("삼성전자",85000,10,850000),
+            StockInfoFormat("삼성전자",85000,10,850000),
+            StockInfoFormat("삼성전자",85000,10,850000)
+        )
+        sellingAdapter.sellingData = tempData2
+        binding.recyclerselling.adapter = sellingAdapter
+        binding.recyclerselling.layoutManager = LinearLayoutManager(activity)
     }
 }

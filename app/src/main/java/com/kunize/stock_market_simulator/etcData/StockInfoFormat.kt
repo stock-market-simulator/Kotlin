@@ -4,5 +4,6 @@ data class StockInfoFormat (
     var name: String,
     var price : Int,
     var amount: Int,
-    var total: Int
+    var total: Int,
+    var rate: Float = 0f
 )
