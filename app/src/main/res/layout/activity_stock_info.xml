@@ -29,13 +29,16 @@
 
             <TextView
                 android:id="@+id/transcationStockName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="8"
+                android:singleLine="false"
                 android:text="삼성전자"
                 android:textColor="#000"
                 android:textSize="48sp"
                 android:textStyle="bold"
+                app:autoSizeMaxTextSize="100sp"
+                app:autoSizeMinTextSize="10sp"
                 app:autoSizeTextType="uniform" />
 
             <ImageView
@@ -176,13 +179,15 @@
             <TextView
                 android:id="@+id/sellButton"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="매도"
                 android:textColor="#000"
                 android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:autoSizeTextType="uniform" />
 
             <View
                 android:id="@+id/textView17"
@@ -195,13 +200,15 @@
             <TextView
                 android:id="@+id/buyButton"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="매수"
                 android:textColor="#000"
                 android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:autoSizeTextType="uniform" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

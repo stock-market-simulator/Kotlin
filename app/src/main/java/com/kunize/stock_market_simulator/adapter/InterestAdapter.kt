@@ -46,18 +46,19 @@ class InterestHolder(private val binding: ItemRecyclerInterestBinding) : Recycle
         var rateFormat = ""
         when {
             data.rate > 0 -> {
-                binding.Arrow.text = "▲"
-                binding.Arrow.setTextColor(RED)
+                binding.arrow.setTextColor(RED)
+                binding.arrow.text = "▲"
                 binding.InterestRate.setTextColor(RED)
                 binding.InterestPrice.setTextColor(RED)
                 rateFormat = "+"
             }
             data.rate < 0 -> {
-                binding.Arrow.text = "▼"
-                binding.Arrow.setTextColor(BLUE)
+                binding.arrow.setTextColor(BLUE)
+                binding.arrow.text = "▼"
                 binding.InterestRate.setTextColor(BLUE)
-                binding.InterestPrice.setTextColor(BLUE)}
-            else -> binding.Arrow.text = "-"
+                binding.InterestPrice.setTextColor(BLUE)
+            }
+            else -> binding.arrow.text = "-"
         }
         rateFormat += "${data.rate}%"
         binding.InterestRate.text = rateFormat
