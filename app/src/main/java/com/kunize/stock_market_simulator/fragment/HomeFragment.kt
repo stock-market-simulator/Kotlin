@@ -52,7 +52,15 @@ class HomeFragment : Fragment() {
         val tempData = mutableListOf<interestFormat>(
             interestFormat("삼성전자",90000,2.3),
             interestFormat("대한항공",31000,-3.5),
-            interestFormat("네이버",419000,-1.06)
+            interestFormat("네이버",419000,-1.06),
+            interestFormat("삼성전자",90000,2.3),
+            interestFormat("대한항공",31000,-3.5),
+            interestFormat("삼성전자",90000,2.3),
+            interestFormat("대한항공",31000,-3.5),
+            interestFormat("삼성전자",90000,2.3),
+            interestFormat("대한항공",31000,-3.5),
+            interestFormat("삼성전자",90000,2.3),
+            interestFormat("대한항공",31000,-3.5)
         )
         interestAdapter.interestData = tempData
         binding.recyclerInterest.adapter = interestAdapter
