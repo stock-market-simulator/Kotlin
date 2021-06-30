@@ -50,11 +50,11 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val interestAdapter = InterestAdapter()
         val tempData = mutableListOf<interestFormat>(
-            interestFormat("삼성전자",90000,2.3),
-            interestFormat("대한항공",31000,-3.5),
+            interestFormat("삼성전자",900,2.3),
+            interestFormat("대한항공",3100,-3.5),
             interestFormat("네이버",419000,-1.06),
-            interestFormat("삼성전자",90000,2.3),
-            interestFormat("대한항공",31000,-3.5),
+            interestFormat("삼성전자",9000000,2.3),
+            interestFormat("대한항공",31000000,-3.5),
             interestFormat("삼성전자",90000,2.3),
             interestFormat("대한항공",31000,-3.5),
             interestFormat("삼성전자",90000,2.3),
