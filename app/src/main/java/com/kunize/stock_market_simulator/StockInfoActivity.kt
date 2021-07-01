@@ -51,7 +51,9 @@ class StockInfoActivity : AppCompatActivity() {
             xAxis.axisMaximum = 100f
             legend.isEnabled = false //범례 노출
             description.isEnabled = false //설명 노출
-            setTouchEnabled(false)
+            setTouchEnabled(true)
+            setPinchZoom(false)
+            isDoubleTapToZoomEnabled = false
         }
     }
 
@@ -76,10 +78,7 @@ class StockInfoActivity : AppCompatActivity() {
 
         val data = LineData(dataSet)
         chart.data = data
+        chart.xAxis.setLabelCount(20,true)
         chart.invalidate()
     }
-}
-
-private operator fun Float.invoke(fl: Float) {
-
 }

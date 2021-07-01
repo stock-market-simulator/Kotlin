@@ -2,8 +2,11 @@ package com.kunize.stock_market_simulator
 
 import android.graphics.Color.rgb
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputType
 import android.text.TextPaint
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -12,11 +15,15 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.kunize.stock_market_simulator.databinding.ActivityTransactionBinding
+import kotlin.time.times
 
 
 class TransactionActivity : AppCompatActivity() {
     private val binding by lazy { ActivityTransactionBinding.inflate(layoutInflater) }
     private val spinnerData = listOf("시장가", "지정가")
+    private var editAmount: Long = 0
+    private var editPrice: Long = 0
+    private var total: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,14 +50,11 @@ class TransactionActivity : AppCompatActivity() {
                 binding.buttonTranscation.text = "판매"
                 binding.textBuyorSell.text = "판매합니다."
             }
-            "editBuy" -> {
+            else -> {
                 binding.buttonTranscation.text = "정정"
                 binding.textBuyorSell.text = "정정합니다."
-                //api 설정 추가
-            }
-            "editSell" -> {
-                binding.buttonTranscation.text = "정정"
-                binding.textBuyorSell.text = "정정합니다."
+                val amount = intent.getStringExtra("amount")
+                binding.editAmount.text = amount
                 //api 설정 추가
             }
         }
@@ -81,8 +85,58 @@ class TransactionActivity : AppCompatActivity() {
                 binding.editPrice.inputType = InputType.TYPE_NULL
             }
         }
-
         binding.editPrice.text = binding.nowPrice.text
         binding.editAmount.hint = "수량"
+
+        updateTotalPrice()
+
+        binding.editAmount.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                //
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                //
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                updateTotalPrice()
+            }
+        })
+
+        binding.editPrice.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                //
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                //
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                updateTotalPrice()
+            }
+        })
+
+        Log.d("totaltest", "${binding.editAmount.text.toString().toIntOrNull()}")
+        Log.d("totaltest", "${binding.editPrice.text.toString()}")
+        Log.d("totaltest", "${binding.textTotalPrice.text}")
+
+    }
+
+    private fun updateTotalPrice() {
+        editAmount = if (binding.editAmount.text.toString().toLongOrNull() != null) {
+            binding.editAmount.text.toString().toLong()
+        } else 0
+
+        editPrice = if (binding.editPrice.text.toString().toLongOrNull() != null) {
+            binding.editPrice.text.toString().toLong()
+        } else 0
+
+        total = editAmount * editPrice
+        runOnUiThread {
+            binding.textTotalPrice.text = "총 $total KRW"
+        }
+
     }
 }
