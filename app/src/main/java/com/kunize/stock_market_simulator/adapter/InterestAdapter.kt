@@ -1,6 +1,7 @@
 package com.kunize.stock_market_simulator.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kunize.stock_market_simulator.MainActivity.Companion.BLUE
@@ -10,7 +11,7 @@ import com.kunize.stock_market_simulator.etcData.interestFormat
 
 class InterestAdapter : RecyclerView.Adapter<InterestHolder>() {
     var interestData = mutableListOf<interestFormat>()
-    //private lateinit var itemClickListner: ItemClickListener
+    private lateinit var itemClickListner: ItemClickListener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InterestHolder {
         val binding = ItemRecyclerInterestBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -26,17 +27,17 @@ class InterestAdapter : RecyclerView.Adapter<InterestHolder>() {
     override fun onBindViewHolder(holder: InterestHolder, position: Int) {
         val data = interestData[position]
         holder.setData(data)
-        /*holder.itemView.setOnClickListener{
+        holder.itemView.setOnClickListener{
             itemClickListner.onClick(it,position)
-        }*/
+        }
     }
 
-    /*interface ItemClickListener {
+    interface ItemClickListener {
         fun onClick(view: View, position: Int)
     }
     fun setItemClickListener(itemClickListener: ItemClickListener) {
         this.itemClickListner = itemClickListener
-    }*/
+    }
 }
 
 class InterestHolder(private val binding: ItemRecyclerInterestBinding) : RecyclerView.ViewHolder(binding.root) {

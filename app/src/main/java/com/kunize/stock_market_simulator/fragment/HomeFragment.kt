@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.kunize.stock_market_simulator.MainActivity.Companion.BLUE
 import com.kunize.stock_market_simulator.MainActivity.Companion.RED
 import com.kunize.stock_market_simulator.SearchActivity
+import com.kunize.stock_market_simulator.StockInfoActivity
 import com.kunize.stock_market_simulator.adapter.InterestAdapter
 import com.kunize.stock_market_simulator.databinding.FragmentHomeBinding
 import com.kunize.stock_market_simulator.etcData.interestFormat
@@ -41,13 +42,6 @@ class HomeFragment : Fragment() {
         drawChart(binding.kospiChart, RED)
         drawChart(binding.kosdaqChart, BLUE)
 
-
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         val interestAdapter = InterestAdapter()
         val tempData = mutableListOf<interestFormat>(
             interestFormat("삼성전자",900,2.3),
@@ -65,6 +59,22 @@ class HomeFragment : Fragment() {
         interestAdapter.interestData = tempData
         binding.recyclerInterest.adapter = interestAdapter
         binding.recyclerInterest.layoutManager = GridLayoutManager(activity,2)
+
+        interestAdapter.setItemClickListener(object : InterestAdapter.ItemClickListener {
+            override fun onClick(view: View, position: Int) {
+                val intent = Intent(activity, StockInfoActivity::class.java)
+                intent.putExtra("stockName", interestAdapter.interestData[position].name)
+                startActivity(intent)
+            }
+        })
+
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
     private fun chartSet(chart: LineChart) {

@@ -117,11 +117,6 @@ class TransactionActivity : AppCompatActivity() {
                 updateTotalPrice()
             }
         })
-
-        Log.d("totaltest", "${binding.editAmount.text.toString().toIntOrNull()}")
-        Log.d("totaltest", "${binding.editPrice.text.toString()}")
-        Log.d("totaltest", "${binding.textTotalPrice.text}")
-
     }
 
     private fun updateTotalPrice() {
