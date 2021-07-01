@@ -20,10 +20,6 @@ class TransactionHistoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTransactionBinding.inflate(inflater, container, false)
-        binding.searchButton.setOnClickListener {
-            val intent = Intent(activity, SearchActivity::class.java)
-            startActivity(intent)
-        }
         return binding.root
     }
 

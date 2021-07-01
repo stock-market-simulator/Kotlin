@@ -47,6 +47,8 @@ class StockInfoActivity : AppCompatActivity() {
             axisLeft.isEnabled = false //왼쪽 y축 노출
             axisRight.isEnabled = false //오른쪽 y축 노출
             xAxis.isEnabled = false //x축 노출
+            xAxis.axisMinimum = 0f
+            xAxis.axisMaximum = 100f
             legend.isEnabled = false //범례 노출
             description.isEnabled = false //설명 노출
             setTouchEnabled(false)
@@ -59,6 +61,12 @@ class StockInfoActivity : AppCompatActivity() {
         for (i in 0 until 30) {
             entries.add(Entry(i.toFloat(), emptyInput[i].toFloat()))
         }
+        for(i in 30 until 50) {
+            entries.add(Entry(i.toFloat(), 0f))
+        }
+        for(i in 70 until 80) {
+            entries.add(Entry(i.toFloat(), 0.5f))
+        }
         val dataSet: LineDataSet = LineDataSet(entries, "코스피").apply {
             setDrawCircles(false)
             setDrawValues(false)
@@ -70,4 +78,8 @@ class StockInfoActivity : AppCompatActivity() {
         chart.data = data
         chart.invalidate()
     }
+}
+
+private operator fun Float.invoke(fl: Float) {
+
 }
