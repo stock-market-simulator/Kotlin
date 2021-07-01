@@ -4,18 +4,14 @@ import android.graphics.Color.rgb
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
-import android.text.TextPaint
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.kunize.stock_market_simulator.databinding.ActivityTransactionBinding
-import kotlin.time.times
+import java.text.DecimalFormat
 
 
 class TransactionActivity : AppCompatActivity() {
@@ -24,6 +20,10 @@ class TransactionActivity : AppCompatActivity() {
     private var editAmount: Long = 0
     private var editPrice: Long = 0
     private var total: Long = 0
+
+    companion object {
+        val decimalFormat = DecimalFormat("###,###")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,7 +90,7 @@ class TransactionActivity : AppCompatActivity() {
 
         updateTotalPrice()
 
-        binding.editAmount.addTextChangedListener(object: TextWatcher{
+        binding.editAmount.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 //
             }
@@ -104,7 +104,7 @@ class TransactionActivity : AppCompatActivity() {
             }
         })
 
-        binding.editPrice.addTextChangedListener(object: TextWatcher{
+        binding.editPrice.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 //
             }
@@ -135,7 +135,7 @@ class TransactionActivity : AppCompatActivity() {
 
         total = editAmount * editPrice
         runOnUiThread {
-            binding.textTotalPrice.text = "총 $total KRW"
+            binding.textTotalPrice.text = "총 "+ decimalFormat.format(total) + " KRW"
         }
 
     }
