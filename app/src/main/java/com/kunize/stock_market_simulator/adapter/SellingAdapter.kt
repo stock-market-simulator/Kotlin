@@ -44,8 +44,8 @@ class SellingHolder(private val binding: ItemRecyclerHistoryBinding) : RecyclerV
     var amount = binding.historyAmount
     fun setData(data: StockInfoFormat) {
         binding.historyName.text = data.name
-        binding.historyPrice.text = "${data.price}"
+        binding.historyPrice.text = TransactionActivity.decimalFormat.format(data.price)
         binding.historyAmount.text = "${data.amount}"
-        binding.historyTotal.text = "${data.total}"
+        binding.historyTotal.text = TransactionActivity.decimalFormat.format(data.total)
     }
 }

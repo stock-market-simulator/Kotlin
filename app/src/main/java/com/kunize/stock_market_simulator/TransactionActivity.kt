@@ -4,6 +4,7 @@ import android.graphics.Color.rgb
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
@@ -29,6 +30,7 @@ class TransactionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.nowPrice.text = decimalFormat.format(90000)
 
         val spinnerAdapter = ArrayAdapter<String>(
             this,
@@ -124,8 +126,8 @@ class TransactionActivity : AppCompatActivity() {
             binding.editAmount.text.toString().toLong()
         } else 0
 
-        editPrice = if (binding.editPrice.text.toString().toLongOrNull() != null) {
-            binding.editPrice.text.toString().toLong()
+        editPrice = if (binding.editPrice.text.toString() != "") {
+            binding.editPrice.text.toString().replace(",","").toLong()
         } else 0
 
         total = editAmount * editPrice

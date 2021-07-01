@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kunize.stock_market_simulator.MainActivity.Companion.BLUE
 import com.kunize.stock_market_simulator.MainActivity.Companion.RED
+import com.kunize.stock_market_simulator.TransactionActivity.Companion.decimalFormat
 import com.kunize.stock_market_simulator.databinding.ItemRecyclerHoldBinding
 import com.kunize.stock_market_simulator.etcData.StockInfoFormat
 
@@ -43,9 +44,9 @@ class HoldAdapter : RecyclerView.Adapter<HoldHolder>() {
 class HoldHolder(private val binding: ItemRecyclerHoldBinding) : RecyclerView.ViewHolder(binding.root) {
     fun setData(data: StockInfoFormat) {
         binding.holdName.text = data.name
-        binding.averPrice.text = "${data.price}"
+        binding.averPrice.text = decimalFormat.format(data.price)
         binding.amount.text = "${data.amount}"
-        binding.total.text = "${data.total}"
+        binding.total.text = decimalFormat.format(data.total)
         var rateText = "("
         if(data.rate > 0){
             binding.rate.setTextColor(RED)

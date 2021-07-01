@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.kunize.stock_market_simulator.StockInfoActivity
 import com.kunize.stock_market_simulator.TransactionActivity
+import com.kunize.stock_market_simulator.TransactionActivity.Companion.decimalFormat
 import com.kunize.stock_market_simulator.databinding.ItemRecyclerHistoryBinding
 import com.kunize.stock_market_simulator.etcData.StockInfoFormat
 
@@ -45,8 +46,8 @@ class BuyingHolder(private val binding: ItemRecyclerHistoryBinding) : RecyclerVi
     var amount = binding.historyAmount
     fun setData(data: StockInfoFormat){
         binding.historyName.text = data.name
-        binding.historyPrice.text = "${data.price}"
+        binding.historyPrice.text = decimalFormat.format(data.price)
         binding.historyAmount.text = "${data.amount}"
-        binding.historyTotal.text = "${data.total}"
+        binding.historyTotal.text = decimalFormat.format(data.total)
     }
 }

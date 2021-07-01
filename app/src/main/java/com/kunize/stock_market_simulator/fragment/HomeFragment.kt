@@ -72,11 +72,6 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
-
     private fun chartSet(chart: LineChart) {
         chart.apply {
             axisLeft.isEnabled = false //왼쪽 y축 노출

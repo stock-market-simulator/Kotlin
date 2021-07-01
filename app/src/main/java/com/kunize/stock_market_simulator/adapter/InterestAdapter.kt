@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kunize.stock_market_simulator.MainActivity.Companion.BLUE
 import com.kunize.stock_market_simulator.MainActivity.Companion.RED
+import com.kunize.stock_market_simulator.TransactionActivity.Companion.decimalFormat
 import com.kunize.stock_market_simulator.databinding.ItemRecyclerInterestBinding
 import com.kunize.stock_market_simulator.etcData.interestFormat
 
@@ -43,7 +44,7 @@ class InterestAdapter : RecyclerView.Adapter<InterestHolder>() {
 class InterestHolder(private val binding: ItemRecyclerInterestBinding) : RecyclerView.ViewHolder(binding.root) {
     fun setData(data: interestFormat){
         binding.InterestName.text = data.name
-        binding.InterestPrice.text = "${data.price}"
+        binding.InterestPrice.text = decimalFormat.format(data.price)
         var rateFormat = ""
         when {
             data.rate > 0 -> {
