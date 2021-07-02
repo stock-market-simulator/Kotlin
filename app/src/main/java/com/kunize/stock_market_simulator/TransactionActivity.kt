@@ -142,8 +142,14 @@ class TransactionActivity : AppCompatActivity() {
 
         total = editAmount * editPrice
         runOnUiThread {
-            if(plusMinus != 0L)
-                binding.editAmount.text = "$editAmount"
+            if(plusMinus != 0L) {
+                when (editAmount) {
+                    0L -> {
+                        binding.editAmount.text = ""
+                    }
+                    else -> binding.editAmount.text = "$editAmount"
+                }
+            }
             binding.textTotalPrice.text = "총 "+ decimalFormat.format(total) + " KRW"
         }
 
