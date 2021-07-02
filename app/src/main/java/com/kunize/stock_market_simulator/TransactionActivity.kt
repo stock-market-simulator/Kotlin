@@ -119,12 +119,22 @@ class TransactionActivity : AppCompatActivity() {
                 updateTotalPrice()
             }
         })
+
+        binding.plusAmount.setOnClickListener {
+            updateTotalPrice(1)
+        }
+
+        binding.minusAmount.setOnClickListener {
+            if(editAmount > 0)
+                updateTotalPrice(-1)
+        }
+
     }
 
-    private fun updateTotalPrice() {
+    private fun updateTotalPrice(plusMinus: Long = 0) {
         editAmount = if (binding.editAmount.text.toString().toLongOrNull() != null) {
-            binding.editAmount.text.toString().toLong()
-        } else 0
+            binding.editAmount.text.toString().toLong() + plusMinus
+        } else 0 + plusMinus
 
         editPrice = if (binding.editPrice.text.toString() != "") {
             binding.editPrice.text.toString().replace(",","").toLong()
@@ -132,6 +142,8 @@ class TransactionActivity : AppCompatActivity() {
 
         total = editAmount * editPrice
         runOnUiThread {
+            if(plusMinus != 0L)
+                binding.editAmount.text = "$editAmount"
             binding.textTotalPrice.text = "총 "+ decimalFormat.format(total) + " KRW"
         }
 
