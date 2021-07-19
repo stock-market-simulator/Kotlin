@@ -84,9 +84,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun drawChart(chart: LineChart, lineColor: Int) {
-        val emptyInput = Array<Double>(30) { Math.random() }
+        val emptyInput = Array<Double>(26) { Math.random() + 10.0 }
         val entries: ArrayList<Entry> = ArrayList()
-        for (i in 0 until 30) {
+        for (i in 0 until 26) {
             entries.add(Entry(i.toFloat(), emptyInput[i].toFloat()))
         }
         val dataSet: LineDataSet = LineDataSet(entries, "코스피").apply {
