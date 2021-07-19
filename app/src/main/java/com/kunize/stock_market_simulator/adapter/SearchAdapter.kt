@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import com.kunize.stock_market_simulator.HangulUtils
 import com.kunize.stock_market_simulator.databinding.ItemRecyclerSearchBinding
 import java.util.*
 
@@ -15,9 +16,9 @@ class SearchAdapter : RecyclerView.Adapter<SearchHolder>(), Filterable {
     private lateinit var itemClickListner: ItemClickListener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchHolder {
         val binding = ItemRecyclerSearchBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false)
+            LayoutInflater.from(parent.context),
+            parent,
+            false)
         return SearchHolder(binding)
     }
 
@@ -42,6 +43,10 @@ class SearchAdapter : RecyclerView.Adapter<SearchHolder>(), Filterable {
                 } else {
                     val filteredList = mutableListOf<String>()
                     for(name in unfilteredData){
+                        val iniName = HangulUtils.getHangulInitialSound(name, charString);
+                        if (iniName.indexOf(charString) >= 0) { // 초성검색어가 있으면 해당 데이터 리스트에 추가
+                            filteredList.add(name);
+                        }
                         if (name.toLowerCase(Locale.ROOT).contains(charString.toLowerCase(Locale.ROOT))) {
                             filteredList.add(name)
                         }
