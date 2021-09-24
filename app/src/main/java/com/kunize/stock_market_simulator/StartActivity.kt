@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import com.kakao.sdk.auth.AuthApiClient
@@ -51,6 +52,7 @@ class StartActivity : AppCompatActivity() {
                     }
                 } else {
                     Log.d("TEST", "토큰이 존재함")
+                    userInfo()
                     startActivity(intent)
                 }
             }
@@ -113,6 +115,7 @@ class StartActivity : AppCompatActivity() {
             if (error != null) {
                 Log.d("KaKaoTEST", "토큰 정보 보기 실패", error)
             } else if (tokenInfo != null) {
+                Toast.makeText(this, "${tokenInfo.id}",Toast.LENGTH_LONG).show()
                 Log.d(
                     "KaKaoTEST", "토큰 정보 보기 성공" +
                             "\n회원번호: ${tokenInfo.id}" +

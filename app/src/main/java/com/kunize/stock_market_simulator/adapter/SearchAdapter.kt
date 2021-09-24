@@ -47,7 +47,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchHolder>(), Filterable {
                         if (iniName.indexOf(charString) >= 0) { // 초성검색어가 있으면 해당 데이터 리스트에 추가
                             filteredList.add(name);
                         }
-                        if (name.toLowerCase(Locale.ROOT).contains(charString.toLowerCase(Locale.ROOT))) {
+                        else if (name.lowercase(Locale.ROOT).contains(charString.lowercase(Locale.ROOT))) {
                             filteredList.add(name)
                         }
                     }

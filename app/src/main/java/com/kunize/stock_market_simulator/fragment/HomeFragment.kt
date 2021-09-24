@@ -1,19 +1,14 @@
 package com.kunize.stock_market_simulator.fragment
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.Color.rgb
-import android.graphics.ColorSpace
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.graphics.red
 import androidx.recyclerview.widget.GridLayoutManager
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -24,6 +19,12 @@ import com.kunize.stock_market_simulator.StockInfoActivity
 import com.kunize.stock_market_simulator.adapter.InterestAdapter
 import com.kunize.stock_market_simulator.databinding.FragmentHomeBinding
 import com.kunize.stock_market_simulator.etcData.interestFormat
+import com.kunize.stock_market_simulator.server.ApiInterface
+import com.kunize.stock_market_simulator.server.DTO.KospiKosdaq
+import com.kunize.stock_market_simulator.server.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
@@ -37,10 +38,28 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        chartSet(binding.kospiChart)
-        chartSet(binding.kosdaqChart)
-        drawChart(binding.kospiChart, RED)
-        drawChart(binding.kosdaqChart, BLUE)
+        val retrofit = RetrofitClient.getInstance()
+        val api = retrofit.create(ApiInterface::class.java)
+
+        api.requestKospiKosdaq().enqueue(object : Callback<KospiKosdaq> {
+            override fun onFailure(call: Call<KospiKosdaq>, t: Throwable) {
+                Log.d("retrofit","${t.message}")
+            }
+
+            override fun onResponse(
+                call: Call<KospiKosdaq>,
+                response: Response<KospiKosdaq>
+            ) {
+                val result : KospiKosdaq? = response.body()
+                Log.d("retrofit","${result?.getKosdaq()}")
+                chartSet(binding.kospiChart)
+                chartSet(binding.kosdaqChart)
+                drawChart(binding.kospiChart, RED, result!!.getKospi())
+                drawChart(binding.kosdaqChart, BLUE, result.getKosdaq())
+            }
+        })
+
+
 
         val interestAdapter = InterestAdapter()
         val tempData = mutableListOf<interestFormat>(
@@ -83,11 +102,10 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun drawChart(chart: LineChart, lineColor: Int) {
-        val emptyInput = Array<Double>(26) { Math.random() + 10.0 }
+    private fun drawChart(chart: LineChart, lineColor: Int, data: MutableList<Double>) {
         val entries: ArrayList<Entry> = ArrayList()
-        for (i in 0 until 26) {
-            entries.add(Entry(i.toFloat(), emptyInput[i].toFloat()))
+        for (i in 0 until data.size) {
+            entries.add(Entry(i.toFloat(), data[i].toFloat()))
         }
         val dataSet: LineDataSet = LineDataSet(entries, "코스피").apply {
             setDrawCircles(false)
