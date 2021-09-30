@@ -1,5 +1,6 @@
 package com.kunize.stock_market_simulator.fragment
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -20,6 +21,7 @@ import com.kunize.stock_market_simulator.adapter.InterestAdapter
 import com.kunize.stock_market_simulator.databinding.FragmentHomeBinding
 import com.kunize.stock_market_simulator.etcData.interestFormat
 import com.kunize.stock_market_simulator.server.ApiInterface
+import com.kunize.stock_market_simulator.server.DTO.Bookmark
 import com.kunize.stock_market_simulator.server.DTO.KospiKosdaq
 import com.kunize.stock_market_simulator.server.RetrofitClient
 import retrofit2.Call
@@ -28,6 +30,7 @@ import retrofit2.Response
 
 class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
+    private lateinit var api: ApiInterface
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,7 +42,7 @@ class HomeFragment : Fragment() {
         }
 
         val retrofit = RetrofitClient.getInstance()
-        val api = retrofit.create(ApiInterface::class.java)
+        api = retrofit.create(ApiInterface::class.java)
 
         api.requestKospiKosdaq().enqueue(object : Callback<KospiKosdaq> {
             override fun onFailure(call: Call<KospiKosdaq>, t: Throwable) {
@@ -59,36 +62,40 @@ class HomeFragment : Fragment() {
             }
         })
 
+        return binding.root
+    }
 
+    override fun onResume() {
+        super.onResume()
+        val userId = requireActivity().getSharedPreferences("userID", MODE_PRIVATE).getString("userID","")
 
-        val interestAdapter = InterestAdapter()
-        val tempData = mutableListOf<interestFormat>(
-            interestFormat("삼성전자",900,2.3),
-            interestFormat("대한항공",3100,-3.5),
-            interestFormat("네이버",419000,-1.06),
-            interestFormat("삼성전자",9000000,2.3),
-            interestFormat("대한항공",31000000,-3.5),
-            interestFormat("삼성전자",90000,2.3),
-            interestFormat("대한항공",31000,-3.5),
-            interestFormat("삼성전자",90000,2.3),
-            interestFormat("대한항공",31000,-3.5),
-            interestFormat("삼성전자",90000,2.3),
-            interestFormat("대한항공",31000,-3.5)
-        )
-        interestAdapter.interestData = tempData
-        binding.recyclerInterest.adapter = interestAdapter
-        binding.recyclerInterest.layoutManager = GridLayoutManager(activity,2)
+        api.getBookmark(userId!!).enqueue(object  : Callback<Bookmark> {
+            override fun onResponse(call: Call<Bookmark>, response: Response<Bookmark>) {
+                if(response.isSuccessful) {
+                    val result = response.body()
+                    if(result != null) {
+                        val tempData = result.getBookmarkByInterestFormat()
+                        val interestAdapter = InterestAdapter()
 
-        interestAdapter.setItemClickListener(object : InterestAdapter.ItemClickListener {
-            override fun onClick(view: View, position: Int) {
-                val intent = Intent(activity, StockInfoActivity::class.java)
-                intent.putExtra("stockName", interestAdapter.interestData[position].name)
-                startActivity(intent)
+                        interestAdapter.interestData = tempData
+                        binding.recyclerInterest.adapter = interestAdapter
+                        binding.recyclerInterest.layoutManager = GridLayoutManager(activity,2)
+                        interestAdapter.setItemClickListener(object : InterestAdapter.ItemClickListener {
+                            override fun onClick(view: View, position: Int) {
+                                val intent = Intent(activity, StockInfoActivity::class.java)
+                                intent.putExtra("stockName", interestAdapter.interestData[position].name)
+                                startActivity(intent)
+                            }
+                        })
+                        Log.d("bookmark","$userId")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Bookmark>, t: Throwable) {
+                Log.d("bookmarkTest","북마크 불러오기 실패 ${t.message}")
             }
         })
-
-
-        return binding.root
     }
 
     private fun chartSet(chart: LineChart) {

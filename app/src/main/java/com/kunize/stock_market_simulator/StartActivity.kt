@@ -15,7 +15,6 @@ import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.user.UserApiClient
 import com.kunize.stock_market_simulator.databinding.ActivityStartBinding
 import com.kunize.stock_market_simulator.server.ApiInterface
-import com.kunize.stock_market_simulator.server.DTO.ErrorBody
 import com.kunize.stock_market_simulator.server.RetrofitClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO

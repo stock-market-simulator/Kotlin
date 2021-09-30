@@ -1,19 +1,30 @@
 package com.kunize.stock_market_simulator
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.google.gson.JsonObject
 import com.kunize.stock_market_simulator.MainActivity.Companion.RED
 import com.kunize.stock_market_simulator.databinding.ActivityStockInfoBinding
+import com.kunize.stock_market_simulator.etcData.BookmarkFormat
+import com.kunize.stock_market_simulator.server.ApiInterface
+import com.kunize.stock_market_simulator.server.DTO.Bookmark
+import com.kunize.stock_market_simulator.server.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class StockInfoActivity : AppCompatActivity() {
     private val binding by lazy { ActivityStockInfoBinding.inflate(layoutInflater) }
     private val spinnerData = listOf("1분","1일","1주일","1개월","3개월")
+    private var isBooked = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -38,8 +49,60 @@ class StockInfoActivity : AppCompatActivity() {
             startActivity(buyOrSellIntent)
         }
 
+        val retrofit = RetrofitClient.getInstance()
+        val api = retrofit.create(ApiInterface::class.java)
+        val userId = getSharedPreferences("userID", MODE_PRIVATE).getString("userID","")
+        var bookMarkData: MutableList<BookmarkFormat> = mutableListOf()
+
+
+        api.getBookmark(userId!!).enqueue(object : Callback<Bookmark> {
+
+            override fun onResponse(call: Call<Bookmark>, response: Response<Bookmark>) {
+                if(response.isSuccessful) {
+                    val result = response.body()
+                    if(result != null) {
+                        bookMarkData = result.getBookmarkInfo()
+                        isBooked = result.isBookmarked(stockName!!)
+                        setBookmarkColor()
+                        Log.d("bookmark","$userId")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Bookmark>, t: Throwable) {
+                Log.d("bookmarkTest","북마크 불러오기 실패 ${t.message}")
+            }
+        })
+
+        binding.bookmarkBtn.setOnClickListener {
+            api.editBookmark(userId, stockName!!).enqueue(object : Callback<JsonObject> {
+
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if(response.isSuccessful) {
+                        val result = response.body()
+                        Log.d("bookmarkTest","북마크 보내기 성공 $result")
+                        isBooked = !isBooked
+                        setBookmarkColor()
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Log.d("bookmarkTest","실패 !${t.message}")
+                }
+            })
+            Log.d("bookmarkTest","$bookMarkData")
+        }
+
         chartSet(binding.stockChart)
         drawChart(binding.stockChart,RED)
+    }
+
+    private fun setBookmarkColor() {
+        if (isBooked) {
+            binding.bookmarkBtn.setColorFilter(Color.parseColor("#FFAC00"))
+        } else {
+            binding.bookmarkBtn.setColorFilter(Color.parseColor("#E0E0E0"))
+        }
     }
 
     private fun chartSet(chart: LineChart) {

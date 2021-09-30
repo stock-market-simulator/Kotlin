@@ -31,7 +31,3 @@ data class KospiKosdaq (
         return list
     }
 }
-
-data class ErrorBody(
-    private var message: String = ""
-)

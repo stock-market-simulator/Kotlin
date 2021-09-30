@@ -18,16 +18,17 @@
         android:textSize="48sp"
         android:textStyle="bold"
         app:autoSizeTextType="uniform"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/bookmarkBtn"
         app:layout_constraintHeight_percent="0.09"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/bookmarkBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="20dp"
+        android:clickable="true"
         android:src="@drawable/ic_baseline_star_24"
         app:layout_constraintBottom_toBottomOf="@+id/transcationStockName"
         app:layout_constraintDimensionRatio="1.1"
